@@ -1,6 +1,7 @@
 *.suo
 *.pidb
 *.user*
+*.log
 bin/
 obj/
 test-results/
