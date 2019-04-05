@@ -2,11 +2,12 @@
 variables:
   MONO_VERSION: 5_16_0
   XCODE_VERSION: 10.1
+  CONFIGURATION: Release
 
 jobs:
 
   - job: build
-    displayName: 'Build Libraries & NuGets (macOS)'
+    displayName: 'Build (macOS)'
     pool:
       vmImage: macos-10.13
     steps:
@@ -16,7 +17,12 @@ jobs:
       - bash: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_$(XCODE_VERSION).app;sudo xcode-select --switch /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
         displayName: 'Switch to the latest Xcode'
       # Build
-      - script: msbuild /restore vernacular.sln
-      - script: nuget install NUnit.ConsoleRunner -ExcludeVersion -OutputDirectory packages
+      - script: msbuild vernacular.sln /restore /p:Configuration=$(CONFIGURATION)
+      - script: msbuild Vernacular.Catalog.XamarinForms /t:pack /p:Configuration=$(CONFIGURATION) /p:PackageOutputPath=../output
       # Test
-      - script: mono packages/NUnit.ConsoleRunner/tools/nunit3-console.exe -trace=verbose Vernacular.Test/bin/Debug/net47/Vernacular.Test.dll
+      - script: nuget install NUnit.ConsoleRunner -ExcludeVersion -OutputDirectory packages
+      - script: mono packages/NUnit.ConsoleRunner/tools/nunit3-console.exe Vernacular.Test/bin/$(CONFIGURATION)/net47/Vernacular.Test.dll -result:output/TestResult.xml
+      - task: PublishTestResults@2
+        inputs:
+          testResultsFormat: NUnit
+          testResultsFiles: 'output/TestResult.xml'
