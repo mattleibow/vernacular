@@ -18,11 +18,22 @@ jobs:
         displayName: 'Switch to the latest Xcode'
       # Build
       - script: msbuild vernacular.sln /restore /p:Configuration=$(CONFIGURATION)
+        displayName: 'Build the projects'
       - script: msbuild Vernacular.Catalog.XamarinForms /t:pack /p:Configuration=$(CONFIGURATION) /p:PackageOutputPath=../output
+        displayName: 'Pack the NuGets'
       # Test
       - script: nuget install NUnit.ConsoleRunner -ExcludeVersion -OutputDirectory packages
+        displayName: 'Download the NUnit test runner'
       - script: mono packages/NUnit.ConsoleRunner/tools/nunit3-console.exe Vernacular.Test/bin/$(CONFIGURATION)/net47/Vernacular.Test.dll -result:output/TestResult.xml
+        displayName: 'Run the tests'
+      # Publish
       - task: PublishTestResults@2
+        displayName: 'Publish test results'
         inputs:
           testResultsFormat: NUnit
           testResultsFiles: 'output/TestResult.xml'
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish artifacts'
+        inputs:
+          pathToPublish: 'output'
+          artifactName: 'nuget'
