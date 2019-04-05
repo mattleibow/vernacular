@@ -19,12 +19,12 @@ jobs:
       # Build
       - script: msbuild vernacular.sln /restore /p:Configuration=$(CONFIGURATION)
         displayName: 'Build the projects'
-      - script: msbuild Vernacular.Catalog.XamarinForms /t:pack /p:Configuration=$(CONFIGURATION) /p:PackageOutputPath=../output
+      - script: msbuild /t:pack /p:Configuration=$(CONFIGURATION) /p:PackageOutputPath=../output Vernacular.Catalog.XamarinForms/Vernacular.Catalog.XamarinForms.csproj
         displayName: 'Pack the NuGets'
       # Test
       - script: nuget install NUnit.ConsoleRunner -ExcludeVersion -OutputDirectory packages
         displayName: 'Download the NUnit test runner'
-      - script: mono packages/NUnit.ConsoleRunner/tools/nunit3-console.exe Vernacular.Test/bin/$(CONFIGURATION)/net47/Vernacular.Test.dll -result:output/TestResult.xml
+      - script: mono packages/NUnit.ConsoleRunner/tools/nunit3-console.exe -result:output/TestResult.xml Vernacular.Test/bin/$(CONFIGURATION)/net47/Vernacular.Test.dll
         displayName: 'Run the tests'
       # Publish
       - task: PublishTestResults@2
