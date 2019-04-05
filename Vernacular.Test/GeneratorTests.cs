@@ -44,17 +44,17 @@ namespace Vernacular.Test
             foreach (var unit in ParserTests.ParseAssembly ()) {
                 generator.Add (unit);
             }
-            generator.Generate ("../../Catalog/en_US.pot");
+            generator.Generate (Utils.GetTestPath ("Catalog/en_US.pot"));
         }
 
         [Test]
         public void TestMoGenerator ()
         {
             var generator = new MoGenerator ();
-            foreach (var unit in ParserTests.ParsePo ("../../Catalog/ga.po") ) {
+            foreach (var unit in ParserTests.ParsePo (Utils.GetTestPath ("Catalog/ga.po")) ) {
                 generator.Add (unit);
             }
-            generator.Generate ("../../Catalog/ga.mo");
+            generator.Generate (Utils.GetTestPath ("Catalog/ga.mo"));
         }
     }
 }

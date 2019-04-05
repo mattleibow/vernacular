@@ -1,0 +1,58 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.24">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid81;MonoAndroid90;uap10.0.16299</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid81;MonoAndroid90;</TargetFrameworks>
+    <AssemblyName>Vernacular.Catalog.XamarinForms</AssemblyName>
+    <RootNamespace>Vernacular.Catalog</RootNamespace>
+    <DebugType>portable</DebugType>
+    <DefineConstants>$(DefineConstants);XAMARINFORMS</DefineConstants>
+    <LangVersion>7.3</LangVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Vernacular.Forms</PackageId>
+    <!-- <PackageIconUrl>TODO</PackageIconUrl> -->
+    <Summary>XamaEnable Vernacular support in your Xamarin.Forms project.s</Summary>
+    <PackageTags>xamarin, windows, ios, android, xamarin.forms, vernacular, localization, language, internationalization, i18n</PackageTags>
+    <Title>Vernacular for Xamarin.Forms</Title>
+    <Description>Enable Vernacular support in your Xamarin.Forms project.</Description>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <Version>1.0.0</Version>
+    <PackageVersion>$(Version)$(VersionSuffix)</PackageVersion>
+    <Authors>Rdio,Stephane Delcroix,Matthew Leibowitz</Authors>
+    <Owners>Stephane Delcroix</Owners>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>Copyright 2012-2019</Copyright>
+    <RepositoryUrl>https://github.com/rdio/vernacular</RepositoryUrl>
+    <!-- <PackageReleaseNotes>TODO</PackageReleaseNotes> -->
+    <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+    <PackageLicenseUrl>https://github.com/rdio/vernacular/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/rdio/vernacular</PackageProjectUrl>
+  </PropertyGroup>
+
+  <!-- sourcelink -->
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
+    <DebugType>pdbonly</DebugType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.293080" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Vernacular.Catalog\**\*.cs" />
+    <Compile Remove="..\Vernacular.Catalog\obj\**\*.cs" />
+  </ItemGroup>
+
+</Project>

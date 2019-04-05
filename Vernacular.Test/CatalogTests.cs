@@ -39,10 +39,10 @@ namespace Vernacular.Test
     {
         private List<Tuple<string, ResourceCatalog>> catalogs = new List<Tuple<string, ResourceCatalog>> ();
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetUp ()
         {
-            foreach (var path in Directory.GetFiles ("../../Catalog", "*.po")) {
+            foreach (var path in Directory.GetFiles (Utils.GetTestPath ("Catalog"), "*.po")) {
                 var parser = new PoParser ();
                 parser.Add (path);
                 var lang = Path.GetFileNameWithoutExtension (path);
@@ -50,7 +50,7 @@ namespace Vernacular.Test
             }
 
             (new GeneratorTests ()).TestMoGenerator ();
-            foreach (var path in Directory.GetFiles ("../../Catalog", "*.mo")) {
+            foreach (var path in Directory.GetFiles (Utils.GetTestPath ("Catalog"), "*.mo")) {
                 var lang = Path.GetFileNameWithoutExtension (path);
                 var catalog = new MoCatalog (File.Open (path, FileMode.Open)) { CurrentIsoLanguageCode = lang };
                 catalogs.Add(new Tuple<string, ResourceCatalog> (lang, catalog));                

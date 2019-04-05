@@ -201,9 +201,11 @@ namespace Vernacular.Parsers
             while (instruction != null) {
                 all_instructions.Add (instruction);
 
+#if !CECIL_SKIP_SEQUENCEPOINT
                 if (instruction.SequencePoint != null) {
                     last_sequence_point = instruction.SequencePoint;
                 }
+#endif
 
                 string location;
                 if (instruction.OpCode != OpCodes.Call &&

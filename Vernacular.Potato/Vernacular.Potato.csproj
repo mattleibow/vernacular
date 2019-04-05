@@ -1,58 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.24">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8326683D-C60D-42AD-A295-00321AE332A6}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Vernacular.Potato</RootNamespace>
+    <TargetFramework>net47</TargetFramework>
     <AssemblyName>Vernacular.Potato</AssemblyName>
+    <RootNamespace>Vernacular.Potato</RootNamespace>
+    <LangVersion>7.3</LangVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
+
+  <!-- sourcelink -->
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
+    <DebugType>pdbonly</DebugType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Test\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
+  <ItemGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Vernacular.Potato\Comment.cs" />
-    <Compile Include="Vernacular.Potato\CommentType.cs" />
-    <Compile Include="Vernacular.Potato\Container.cs" />
-    <Compile Include="Vernacular.Potato\Document.cs" />
-    <Compile Include="Vernacular.Potato\IDocumentPart.cs" />
-    <Compile Include="Vernacular.Potato\Message.cs" />
-    <Compile Include="Vernacular.Potato\MessageType.cs" />
-    <Compile Include="Vernacular.Potato\Unit.cs" />
-    <Compile Include="Vernacular.Potato.Internal\Lexer.cs" />
-    <Compile Include="Vernacular.Potato.Internal\Parser.cs" />
-    <Compile Include="Vernacular.Potato.Internal\Token.cs" />
-    <Compile Include="Vernacular.Potato\UnitChild.cs" />
-    <Compile Include="Vernacular.Potato\Header.cs" />
-    <Compile Include="Vernacular.Potato\HeaderCollection.cs" />
-  </ItemGroup>
+
 </Project>

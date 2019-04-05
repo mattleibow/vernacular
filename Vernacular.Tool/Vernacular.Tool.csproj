@@ -1,141 +1,36 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.24">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FA2384C6-90E1-4419-A3AB-FD3318354B8D}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <TargetFramework>net47</TargetFramework>
+    <AssemblyName>Vernacular</AssemblyName>
     <RootNamespace>Vernacular</RootNamespace>
-    <AssemblyName>Vernacular</AssemblyName>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <DefineConstants>$(DefineConstants);LINQ;VERNACULAR_TOOL;CECIL_SKIP_SEQUENCEPOINT</DefineConstants>
+    <LangVersion>7.3</LangVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>True</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;LINQ;VERNACULAR_TOOL</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Externalconsole>True</Externalconsole>
-    <NoWarn>1685</NoWarn>
-    <PlatformTarget>x86</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
+
+  <!-- sourcelink -->
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
+    <DebugType>pdbonly</DebugType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
-    <DebugSymbols>True</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
-    <OutputPath>bin\Test</OutputPath>
-    <DefineConstants>DEBUG;LINQ;VERNACULAR_TOOL</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Externalconsole>True</Externalconsole>
-    <NoWarn>1685</NoWarn>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <AssemblyName>Vernacular</AssemblyName>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <DefineConstants>LINQ;VERNACULAR_TOOL</DefineConstants>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn>1685</NoWarn>
-  </PropertyGroup>
+  <ItemGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
+  </ItemGroup>
+
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>ICSharpCode.SharpZibLib\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil.Mdb">
-      <HintPath>Mono.Cecil\Mono.Cecil.Mdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb">
-      <HintPath>Mono.Cecil\Mono.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="Mono.Cecil">
-      <HintPath>Mono.Cecil\Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Core" />
+    <PackageReference Include="Mono.Cecil" Version="0.10.3" />
+    <PackageReference Include="Mono.Options" Version="5.3.0.1" />
+    <PackageReference Include="SharpZipLib" Version="1.1.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Mono.Options\Options.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Vernacular.Analyzers\AnalyzerConfiguration.cs" />
-    <Compile Include="Vernacular.Generators\BinaryGenerator.cs" />
-    <Compile Include="Vernacular.Generators\MoGenerator.cs" />
-    <Compile Include="Vernacular.Generators\PoGenerator.cs" />
-    <Compile Include="Vernacular.Generators\StreamGenerator.cs" />
-    <Compile Include="Vernacular.Parsers\AggregateParser.cs" />
-    <Compile Include="Vernacular.Generators\AndroidGenerator.cs" />
-    <Compile Include="Vernacular.Parsers\AndroidResourceParser.cs" />
-    <Compile Include="Vernacular.Parsers\AssemblyParser.cs" />
-    <Compile Include="Vernacular.Parsers\CecilExtensions.cs" />
-    <Compile Include="Vernacular.Parsers\XapParser.cs" />
-    <Compile Include="Vernacular.Tool\Entry.cs" />
-    <Compile Include="Vernacular.Tool\StringExtensions.cs" />
-    <Compile Include="Vernacular.Generators\Generator.cs" />
-    <Compile Include="Vernacular.Generators\IosGenerator.cs" />
-    <Compile Include="Vernacular.Parsers\Parser.cs" />
-    <Compile Include="Vernacular.Analyzers\StringAnalyzer.cs" />
-    <Compile Include="Vernacular.Generators\ResxGenerator.cs" />
-    <Compile Include="Vernacular.Parsers\XamlParser.cs" />
-    <Compile Include="Vernacular.Tool\LocalizationMetadata.cs" />
-    <Compile Include="Vernacular.Tool\ConsoleCrayon.cs" />
-    <Compile Include="Vernacular.Analyzers\Hunspell.cs" />
-    <Compile Include="Vernacular.Parsers\PoParser.cs" />
-    <Compile Include="Vernacular.Parsers\ResxParser.cs" />
+    <ProjectReference Include="..\Vernacular.Catalog\Vernacular.Catalog.csproj" />
+    <ProjectReference Include="..\Vernacular.Potato\Vernacular.Potato.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Vernacular.Catalog\Vernacular.Catalog.csproj">
-      <Project>{BEC7B55D-F922-446D-9BBF-12DB249C4CA4}</Project>
-      <Name>Vernacular.Catalog</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Vernacular.Potato\Vernacular.Potato.csproj">
-      <Project>{8326683D-C60D-42AD-A295-00321AE332A6}</Project>
-      <Name>Vernacular.Potato</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+
 </Project>

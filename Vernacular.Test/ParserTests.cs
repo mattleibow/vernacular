@@ -49,7 +49,7 @@ namespace Vernacular.Test
         {
             var aggregate_parser = new AggregateParser ();
             var xap_parser = new XapParser(aggregate_parser);
-            xap_parser.Add ("../../Xaps/XapStrings.xap");
+            xap_parser.Add (Utils.GetTestPath ("Xaps/XapStrings.xap"));
             return new List<ILocalizationUnit> (aggregate_parser.Parse ());
         }
 
@@ -69,7 +69,7 @@ namespace Vernacular.Test
         [Test]
         public void TestParsePo ()
         {
-            AssertUnits (ParsePo ("../../Catalog/en_US.pot"));
+            AssertUnits (ParsePo (Utils.GetTestPath ("Catalog/en_US.pot")));
         }
 
         [Test]
